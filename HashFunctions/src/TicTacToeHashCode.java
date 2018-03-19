@@ -2,27 +2,26 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
-/**
- * A class that creates
- * 
- * @author gibbonss
- *
- */
-// TODO Make sure you remove all of the TODO comments from this file before
-// turning itin
+//TODO Make sure you remove all of the TODO comments from this file before turning itin
 
+@SuppressWarnings("serial")
 public class TicTacToeHashCode extends Board {
 
-	boolean[] winners; // True if the hash string that maps to this index is a
-						// winner, false otherwise
+	boolean[] winners; // True if the hash string that maps to this index is a winner, false otherwise
 
 	TicTacToeHashCode(String s) {
 		super(s);
 		winners = new boolean[TicTacToe.POSSIBILITIES];
 		for (int i = 0; i < winners.length; i++) {
-			winners[i] = false;// instantiates the winners array and fills it with all empty values
+			winners[i] = false;
 		}
-
+		Scanner wins = fileToScanner("TicTacToeWinners.txt");
+		while (wins.hasNextLine()) {
+			String line = wins.nextLine();
+			super.setBoardString(line);
+			winners[this.myHashCode()] = true;
+		}
+		wins.close();
 	}
 
 	@Override
@@ -45,17 +44,6 @@ public class TicTacToeHashCode extends Board {
 			}
 		}
 		return result;
-	}
-
-	public void fillWinners() {
-		Scanner w = fileToScanner("TicTacToeWinners.txt");
-		int i = 0;
-		while (w.hasNextLine()) {
-			String board = (w.nextLine());
-			if (TicTacToe.isWin(board)) {
-				winners[i++] = true;
-			}
-		}
 	}
 
 	/**
@@ -85,23 +73,22 @@ public class TicTacToeHashCode extends Board {
 	}
 
 	public boolean isWin(String s) {
-		fillWinners();
-		if (winners[this.myHashCode()]) {
-			return true;
-
-		}
-		return false;
+		this.setBoardString(s);
+		return winners[this.myHashCode()];
 	}
 
 	public static void main(String[] args) throws InterruptedException {
 		TicTacToeHashCode board = new TicTacToeHashCode("Tic Tac Toe");
 		while (true) {
 
-			String currentBoard = board.boardValues[(int) (Math.random() * board.boardValues.length)];
-			board.show(currentBoard);
-			board.setHashCode(board.myHashCode());
+			// TODO this line no longer works
+			// String currentBoard = board.boardValues[(int)(Math.random()*
+			// board.boardValues.length)];
+
+			board.displayRandomString();
+			board.setHashCodeLabel(board.myHashCode());
 			// TODO Update this line to call your isWin method.
-			board.setWinner(board.isWin(currentBoard));
+			board.setWinnerLabel(board.isWin(board.getBoardString()));
 
 			Thread.sleep(4000);
 		}

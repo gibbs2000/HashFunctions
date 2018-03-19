@@ -15,35 +15,36 @@ import javax.swing.BoxLayout;
  * 
  * @author Mrs. Kelly/Sean Gibbons
  *
- */
+ **/
+@SuppressWarnings("serial")
 abstract class Board extends JFrame implements ActionListener {
 
 	private JButton buttons[][];
 	private JLabel lblHashCode;
 	private JLabel lblWinTitle;
 
-	public String[] boardValues;
 	private String boardString = "";
 
 	public Board(String title) {
 		super(title);
 		setupFrame();
-		boardValues = TicTacToe.fillValues(); // Calculates all possible entries
 	}
 
-	public void setHashCode(int hashcode) {
+	// TODO renamed from setHashCode to setHashCodeLabel
+	public void setHashCodeLabel(int hashcode) {
 		lblHashCode.setText("" + hashcode);
 	}
 
-	public void setWinner(String result) {
+	// TODO renamed from setWinner to setWinnerLabel
+	public void setWinnerLabel(String result) {
 		lblWinTitle.setText(result);
 	}
 
-	public void setWinner(boolean result) {
+	public void setWinnerLabel(boolean result) {
 		if (result)
-			setWinner("Winner");
+			setWinnerLabel("Winner");
 		else
-			setWinner("Loser");
+			setWinnerLabel("Loser");
 	}
 
 	// required because of abstract method, but not used
@@ -57,7 +58,7 @@ abstract class Board extends JFrame implements ActionListener {
 		;
 		lblHashCode = new JLabel("" + myHashCode());
 		lblWinTitle = new JLabel(""); // Will say either Winner or Loser
-		setWinner(TicTacToe.isWin(boardString));
+		setWinnerLabel(TicTacToe.isWin(boardString));
 		panel.setLayout(new FlowLayout());
 		panel.add(lblHCTitle);
 		panel.add(lblHashCode);
@@ -83,7 +84,10 @@ abstract class Board extends JFrame implements ActionListener {
 					public void actionPerformed(ActionEvent e) {
 						JButton btn = (JButton) e.getSource();
 						btn.setText("" + cycleValue(btn.getText().charAt(0)));
+						resetBoardString();
 						lblHashCode.setText("" + myHashCode());
+						// TODO - should this set the winner label text
+
 					}
 				});
 				panel.add(b);
@@ -135,6 +139,8 @@ abstract class Board extends JFrame implements ActionListener {
 
 	abstract int myHashCode();
 
+	abstract boolean isWin(String s);
+
 	public char charAt(int row, int col) {
 		String value = buttons[row][col].getText();
 		if (value.length() > 0)
@@ -144,25 +150,60 @@ abstract class Board extends JFrame implements ActionListener {
 	}
 
 	public void show(String s) {
-		int ch = 0;
+		int pos = 0;
 		String letter;
 		for (int r = 0; r < TicTacToe.ROWS; r++)
 			for (int c = 0; c < TicTacToe.COLS; c++) {
-				switch (s.substring(ch, ch + 1)) {
-				case "1":
+				char ch = s.charAt(pos);
+				switch (ch) {
+				case '1':
 					letter = "x";
 					break;
-				case "2":
+				case '2':
 					letter = "o";
 					break;
-				default:
+				case '0':
 					letter = " ";
+					break;
+				default:
+					letter = "" + ch;
 					xx: letter = " ";
 				}
-
 				buttons[r][c].setText(letter);
 				ch++;
 			}
+	}
+
+	// TODO Added this method
+	public void resetBoardString() {
+		for (int r = 0; r < TicTacToe.ROWS; r++)
+			for (int c = 0; c < TicTacToe.COLS; c++) {
+				boardString += buttons[r][c].getText();
+			}
+	}
+
+	// TODO Added this Method
+	public void setBoardString(String s) {
+		boardString = s;
+		show(s);
+	}
+
+	public String getBoardString() {
+		return boardString;
+	}
+
+	// TODO Added this message
+	public void displayRandomString() {
+		for (int r = 0; r < TicTacToe.ROWS; r++)
+			for (int c = 0; c < TicTacToe.COLS; c++) {
+				char ch = randomXO();
+				boardString += ch;
+				buttons[r][c].setText("" + ch);
+			}
+		setHashCodeLabel(myHashCode());
+		// TODO Update this line to call your isWin method.
+		setWinnerLabel(this.isWin(boardString));
 
 	}
+
 }
