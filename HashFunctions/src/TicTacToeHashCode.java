@@ -12,15 +12,17 @@ public class TicTacToeHashCode extends Board {
 	TicTacToeHashCode(String s) {
 		super(s);
 		winners = new boolean[TicTacToe.POSSIBILITIES];
-		for (int i = 0; i < winners.length; i++) {
-			winners[i] = false;
-		}
+		// default value is false
 		Scanner wins = fileToScanner("TicTacToeWinners.txt");
 		while (wins.hasNextLine()) {
 			String line = wins.nextLine();
 			super.setBoardString(line);
 			winners[this.myHashCode()] = true;
 		}
+		int i = 0;
+		for (boolean state : winners) {
+			System.out.println(state + " " + (i++));
+		} // tester
 		wins.close();
 	}
 
@@ -80,10 +82,6 @@ public class TicTacToeHashCode extends Board {
 	public static void main(String[] args) throws InterruptedException {
 		TicTacToeHashCode board = new TicTacToeHashCode("Tic Tac Toe");
 		while (true) {
-
-			// TODO this line no longer works
-			// String currentBoard = board.boardValues[(int)(Math.random()*
-			// board.boardValues.length)];
 
 			board.displayRandomString();
 			board.setHashCodeLabel(board.myHashCode());

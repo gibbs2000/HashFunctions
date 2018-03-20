@@ -55,7 +55,6 @@ abstract class Board extends JFrame implements ActionListener {
 	JPanel setupPanelOne() {
 		JPanel panel = new JPanel();
 		JLabel lblHCTitle = new JLabel("Hash Code");
-		;
 		lblHashCode = new JLabel("" + myHashCode());
 		lblWinTitle = new JLabel(""); // Will say either Winner or Loser
 		setWinnerLabel(TicTacToe.isWin(boardString));
@@ -167,10 +166,9 @@ abstract class Board extends JFrame implements ActionListener {
 					break;
 				default:
 					letter = "" + ch;
-					xx: letter = " ";
 				}
 				buttons[r][c].setText(letter);
-				ch++;
+				pos++;
 			}
 	}
 
