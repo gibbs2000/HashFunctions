@@ -80,15 +80,26 @@ public class TicTacToeHashCode extends Board {
 	}
 
 	public static void main(String[] args) throws InterruptedException {
+		Scanner test = fileToScanner("TTT_Tests.txt");
 		TicTacToeHashCode board = new TicTacToeHashCode("Tic Tac Toe");
-		while (true) {
-
-			board.displayRandomString();
-			board.setHashCodeLabel(board.myHashCode());
-			// TODO Update this line to call your isWin method.
+		while (test.hasNextLine()) {
+			String line = test.nextLine();
+			board.setBoardString(line);
 			board.setWinnerLabel(board.isWin(board.getBoardString()));
-
-			Thread.sleep(4000);
+			Thread.sleep(4000);// Pause 4 seconds
 		}
+		test.close();
+
+		/* Mrs Kelly Tests */
+		// TicTacToeHashCode board = new TicTacToeHashCode("Tic Tac Toe");
+		// board.displayRandomString();
+		// while (true) {
+		//
+		// board.setHashCodeLabel(board.myHashCode());
+		// // TODO Update this line to call your isWin method.
+		// board.setWinnerLabel(board.isWin(board.getBoardString()));
+		//
+		// Thread.sleep(4000);
+		// }
 	}
 }

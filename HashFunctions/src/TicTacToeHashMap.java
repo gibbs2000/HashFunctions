@@ -3,7 +3,7 @@ import java.util.HashMap;
 
 public class TicTacToeHashMap {
 
-	// TODO Define a hash map to store the winning strings as Key and true as Value
+	HashMap<String, Boolean> map;
 
 	TicTacToeHashMap() {
 		// TODO Instantiate/fill your HashMap ... pay attention to initial capacity and
