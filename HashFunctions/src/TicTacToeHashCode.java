@@ -2,7 +2,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
-//TODO Make sure you remove all of the TODO comments from this file before turning itin
+//TODO Make sure you remove all of the TODO comments from this file before turning it in
 
 @SuppressWarnings("serial")
 public class TicTacToeHashCode extends Board {
@@ -17,10 +17,10 @@ public class TicTacToeHashCode extends Board {
 			super.setBoardString(wins.nextLine());
 			winners[this.myHashCode()] = true;
 		}
-		int i = 0;
-		for (boolean state : winners) {
-			System.out.println(state + " " + (i++));
-		}
+		// int i = 0;
+		// for (boolean state : winners) {
+		// System.out.println(state + " " + (i++));
+		// }
 		// tester
 		wins.close();
 	}
@@ -81,7 +81,7 @@ public class TicTacToeHashCode extends Board {
 
 	@Override
 	public boolean isWin() {
-		// System.out.println(winners[this.myHashCode()] + " " + this.myHashCode());
+		System.out.println(winners[this.myHashCode()] + " " + this.myHashCode());
 		return winners[this.myHashCode()];
 	}
 
