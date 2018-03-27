@@ -8,6 +8,7 @@ public class TicTacToeHashMap {
 	TicTacToeHashMap() {
 		// TODO Instantiate/fill your HashMap ... pay attention to initial capacity and
 		// load values
+		map = new HashMap<String, Boolean>();
 
 	}
 
@@ -19,7 +20,7 @@ public class TicTacToeHashMap {
 	private int capacity() throws NoSuchFieldException, IllegalAccessException {
 		Field tableField = HashMap.class.getDeclaredField("table");
 		tableField.setAccessible(true);
-		Object[] table = (Object[]) tableField.get(/* TODO YOUR HASH MAP HERE */);
+		Object[] table = (Object[]) tableField.get(map);
 		return table == null ? 0 : table.length;
 	}
 

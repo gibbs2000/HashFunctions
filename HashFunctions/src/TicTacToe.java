@@ -1,11 +1,27 @@
-import java.util.Arrays;
-
+/**
+ * A class with helper methods and constants to aid in creating a TicTacToe
+ * board
+ * 
+ * @author Mrs. Kelly/Javadocs provided by Sean Gibbons
+ *
+ */
 public class TicTacToe {
 	public final static int ROWS = 3;
 	public final static int COLS = 3;
 	public final static int POSSIBILITIES = (int) Math.pow(3, 9);
 	public final static int CHAR_POSSIBILITIES = 3; // x, o or space
 
+	/**
+	 * Returns the number of times a given character occurs in a 2d array of
+	 * characters
+	 * 
+	 * @param b
+	 *            the 2d array of characters to be searched
+	 * @param ch
+	 *            the character to be searched for
+	 * @return the number of times a given character occurs in a 2d array of
+	 *         characters
+	 */
 	private static int numChars(char[][] b, char ch) {
 		int total = 0;
 		for (int r = 0; r < ROWS; r++)
@@ -15,6 +31,13 @@ public class TicTacToe {
 		return total;
 	}
 
+	/**
+	 * Returns whether a given 2d array of characters is a valid TicTacToe board
+	 * 
+	 * @param board
+	 *            the 2d array of characters to be checked
+	 * @return whether a given 2d array of characters is a valid TicTacToe board
+	 */
 	public static boolean valid(char[][] board) {
 
 		// Ensure there are at least 3 xs and 2 os, or 3 os and 2 xs
@@ -28,6 +51,14 @@ public class TicTacToe {
 		return false;
 	}
 
+	/**
+	 * Converts a 2d array of characters to a single long String and returns the
+	 * String
+	 * 
+	 * @param b
+	 *            the 2d array of characters to be converted
+	 * @return the String representation of the parameter
+	 */
 	public static String boardToString(char[][] b) {
 		String result = "";
 		for (int r = 0; r < ROWS; r++) {
@@ -38,6 +69,13 @@ public class TicTacToe {
 		return result;
 	}
 
+	/**
+	 * Converts a single long String to a 2d array of characters with dimensions 3x3
+	 * 
+	 * @param board
+	 *            the String to be converted
+	 * @return a 2d array of characters which made up the String
+	 */
 	public static char[][] stringToBoard(String board) {
 		char[][] b = new char[ROWS][COLS];
 		int index = 0;
@@ -48,6 +86,14 @@ public class TicTacToe {
 		return b;
 	}
 
+	/**
+	 * Returns the appropriate symbol value of a given parameter in the rules of
+	 * TicTacToe
+	 * 
+	 * @param ch
+	 *            the character to be checked
+	 * @return
+	 */
 	public static char whichLetter(char ch) {
 		switch (ch) {
 		case '1':
@@ -78,10 +124,10 @@ public class TicTacToe {
 		// all the rest of the characters as necessary.
 		boolean carry = false;
 		char ch[] = s.toCharArray();
-		ch[ch.length - 1] = (char) ((int) (ch[ch.length - 1]) + 1);
+		ch[ch.length - 1] = (char) ((ch[ch.length - 1]) + 1);
 		for (int n = ch.length - 1; n >= 0; n--) {
 			if (carry)
-				ch[n] = (char) ((int) (ch[n]) + 1);
+				ch[n] = (char) ((ch[n]) + 1);
 			if (ch[n] == '3') {
 				carry = true;
 				ch[n] = '0';

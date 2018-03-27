@@ -12,17 +12,16 @@ public class TicTacToeHashCode extends Board {
 	TicTacToeHashCode(String s) {
 		super(s);
 		winners = new boolean[TicTacToe.POSSIBILITIES];
-		// default value is false
 		Scanner wins = fileToScanner("TicTacToeWinners.txt");
 		while (wins.hasNextLine()) {
-			String line = wins.nextLine();
-			super.setBoardString(line);
+			super.setBoardString(wins.nextLine());
 			winners[this.myHashCode()] = true;
 		}
 		int i = 0;
 		for (boolean state : winners) {
 			System.out.println(state + " " + (i++));
-		} // tester
+		}
+		// tester
 		wins.close();
 	}
 
@@ -74,8 +73,15 @@ public class TicTacToeHashCode extends Board {
 
 	}
 
+	@Override
 	public boolean isWin(String s) {
 		this.setBoardString(s);
+		return winners[this.myHashCode()];
+	}
+
+	@Override
+	public boolean isWin() {
+		// System.out.println(winners[this.myHashCode()] + " " + this.myHashCode());
 		return winners[this.myHashCode()];
 	}
 
@@ -85,12 +91,14 @@ public class TicTacToeHashCode extends Board {
 		while (test.hasNextLine()) {
 			String line = test.nextLine();
 			board.setBoardString(line);
-			board.setWinnerLabel(board.isWin(board.getBoardString()));
-			Thread.sleep(4000);// Pause 4 seconds
+			board.setHashCodeLabel(board.myHashCode());
+			System.out.println(board.isWin());
+			board.setWinnerLabel(board.isWin());
+			Thread.sleep(1000);// TODO Pause 4 seconds
 		}
 		test.close();
 
-		/* Mrs Kelly Tests */
+		/* Mrs Kelly Original Tests */
 		// TicTacToeHashCode board = new TicTacToeHashCode("Tic Tac Toe");
 		// board.displayRandomString();
 		// while (true) {
