@@ -15,7 +15,7 @@ public class TTT_HC extends Board {
 
 	public TTT_HC(String title) {
 		super(title);
-		sizeArray = 200;
+		sizeArray = 40000;
 		// puts the winners in
 		Scanner wins = fileToScanner("TicTacToeWinners.txt");
 		winners = new boolean[sizeArray];
@@ -29,12 +29,26 @@ public class TTT_HC extends Board {
 
 	@Override
 	int myHashCode() {
-		// TODO Auto-generated method stub
-		
-		
-		
-		
-		return 0;
+		String code = this.getBoardString();
+		int score = 0;
+		for (int i = 0; i < code.length(); i++) {
+			switch (code.charAt(i)) {
+			case 'o':
+				score += 3;  
+				break;
+			case 'x':
+				score += 5;
+				break;
+			case ' ':
+				score += 7;
+				break;
+			default:
+				break;
+			}
+			score *= 10;
+		}
+
+		return score;
 	}
 
 	@Override
@@ -74,6 +88,7 @@ public class TTT_HC extends Board {
 	}
 
 	public static void main(String[] args) throws InterruptedException {
-
+		TTT_HC ticTac = new TTT_HC("TTT");
+		System.out.println(ticTac.myHashCode());
 	}
 }

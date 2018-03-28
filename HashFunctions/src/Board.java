@@ -187,9 +187,9 @@ abstract class Board extends JFrame implements ActionListener {
 	}
 
 	/**
-	 * Returns an integer representation of the given boardString
+	 * Returns the HashCode representation of the given boardString
 	 * 
-	 * @return
+	 * @return an int representation of the given boardString using hashing
 	 */
 	abstract int myHashCode();
 
