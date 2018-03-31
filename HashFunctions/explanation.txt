@@ -13,6 +13,11 @@ Additionally, after some testing I noticed there was a good deal of wasted space
 so I included a subtraction just before the return statement to start the array at 0. 
 I used buckets as a response to collisions.
 
+A quick note on testing: 
+Most of my tests use some variation of "String output = "";......System.out.println(output);"
+I found this to be a convenient way of switching between a method that returns void and prints to the console
+and a method that returns a String and does not print anything
+
 Stats:
 Array Size: 167
 Bucket Reporting: 
@@ -41,3 +46,11 @@ For tenth 7, there are 430 collisions
 For tenth 8, there are 98 collisions
 For tenth 9, there are 16 collisions
 For tenth 10, there are 0 collisions
+
+
+
+Part 3:
+
+This part does not work as well as I'd hope, but I did my best.
+The default Java hashcode method has the resulting stats:
+My hashcode method has the resulting stats:

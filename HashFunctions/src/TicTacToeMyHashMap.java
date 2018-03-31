@@ -6,34 +6,33 @@ import java.util.HashMap;
 import java.util.Scanner;
 
 /**
- * A class that creates a hashMap using Java's built-in hashCode functions
+ * A class that creates a hashMap using my hashCode function
  * 
  * @author Sean Gibbons
  *
  */
-public class TicTacToeHashMap {
+public class TicTacToeMyHashMap {
 
-	HashMap<String, Boolean> map;
+	HashMap<TTT_HC, Boolean> map;
 
 	/**
 	 * Instantiates and fills the HashMap using an input file, then closes the
 	 * Scanner
 	 */
-	TicTacToeHashMap() {
+	TicTacToeMyHashMap() {
 
-		map = new HashMap<String, Boolean>();
+		map = new HashMap<TTT_HC, Boolean>();
 		Scanner wins = fileToScanner("TicTacToeWinners.txt");
-
+		TTT_HC ticTac = new TTT_HC("TicTac");
 		while (wins.hasNextLine()) {
-			String entry = wins.nextLine();
-			map.put(entry, true);
+			ticTac.setBoardString(wins.nextLine());
+			map.put(ticTac, true);
 		}
 		wins.close();
 	}
 
 	/**
-	 * Returns the default capacity of the hashMap that was created by Java's built
-	 * in methods
+	 * Returns the default capacity of the hashMap that I created
 	 * 
 	 * @return the capacity of the hashMap
 	 * @throws NoSuchFieldException
@@ -51,7 +50,7 @@ public class TicTacToeHashMap {
 	}
 
 	/**
-	 * Prints the required reporting on Java's hashCode method and HashMap class,
+	 * Prints the required reporting on my hashCode method and HashMap class,
 	 * including capacity and distribution
 	 * 
 	 * @throws NoSuchFieldException
@@ -188,7 +187,7 @@ public class TicTacToeHashMap {
 	}
 
 	/**
-	 * Tests the created HashMap using Java's default hashcode
+	 * Tests the created HashMap using my hashCode
 	 * 
 	 * @param args
 	 *            optional String parameters, not used in this case
@@ -205,7 +204,7 @@ public class TicTacToeHashMap {
 	public static void main(String[] args)
 			throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
 
-		TicTacToeHashMap m = new TicTacToeHashMap();
+		TicTacToeMyHashMap m = new TicTacToeMyHashMap();
 
 		m.reportStats();
 

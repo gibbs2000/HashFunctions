@@ -54,7 +54,7 @@ public class TTT_HC extends Board {
 	}
 
 	@Override
-	public int myHashCode() {
+	public int hashCode() {
 		int score = 0;
 		for (int i = 1; i < TicTacToe.ROWS + 1; i++) {
 			for (int j = 1; j < TicTacToe.COLS + 1; j++) {
@@ -79,6 +79,11 @@ public class TTT_HC extends Board {
 		return score - 540;
 		// through testing, 540 was found to be the lowest possible (all " "s), so
 		// subtracting 540 ensures that the lookup table starts at the right place (0)
+	}
+
+	@Override
+	int myHashCode() {
+		return hashCode();
 	}
 
 	@Override
@@ -166,10 +171,12 @@ public class TTT_HC extends Board {
 		}
 		avgSize = avgSize / bucketNum;
 		output += "Array Size: " + size + "\n";
-		output += "Bucket Reporting: \nTotal Buckets: " + bucketNum + "\nEntries without collisions: " + singles
+		output += "Bucket Reporting: \n\nTotal Buckets: " + bucketNum + "\nEntries without collisions: " + singles
 				+ "\nBiggest bucket: " + biggestBucket + "\nAverage Bucket Size: " + avgSize + "\n\n";
 
 		System.out.println(output);
+		quartiles();
+		tenths();
 	}
 
 	/**
@@ -224,8 +231,7 @@ public class TTT_HC extends Board {
 		Scanner test = fileToScanner("TTT_Tests.txt");
 		TTT_HC ticTac = new TTT_HC("TTT");
 		ticTac.reportStats();
-		ticTac.quartiles();
-		ticTac.tenths();
 		test.close();
 	}
+
 }
