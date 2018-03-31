@@ -52,5 +52,4 @@ For tenth 10, there are 0 collisions
 Part 3:
 
 This part does not work as well as I'd hope, but I did my best.
-The default Java hashcode method has the resulting stats:
-My hashcode method has the resulting stats:
+The default java hashcode just analyzes the wins based on their String value

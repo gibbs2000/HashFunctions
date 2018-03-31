@@ -23,8 +23,9 @@ public class TicTacToeMyHashMap {
 
 		map = new HashMap<TTT_HC, Boolean>();
 		Scanner wins = fileToScanner("TicTacToeWinners.txt");
-		TTT_HC ticTac = new TTT_HC("TicTac");
+
 		while (wins.hasNextLine()) {
+			TTT_HC ticTac = new TTT_HC("TicTac");
 			ticTac.setBoardString(wins.nextLine());
 			map.put(ticTac, true);
 		}
