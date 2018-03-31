@@ -5,6 +5,9 @@ public class TicTacToeHashMap {
 
 	HashMap<String, Boolean> map;
 
+	/**
+	 * Instantiate/fill your HashMap
+	 */
 	TicTacToeHashMap() {
 		// TODO Instantiate/fill your HashMap ... pay attention to initial capacity and
 		// load values
@@ -36,7 +39,7 @@ public class TicTacToeHashMap {
 			throws java.io.FileNotFoundException, NoSuchFieldException, IllegalAccessException {
 
 		TicTacToeHashMap m = new TicTacToeHashMap();
-
+		System.out.println(m.capacity());
 		// TODO read in and store the strings in your Hash Map, then close the file
 
 		// TODO print out the capacity using the capacity() method

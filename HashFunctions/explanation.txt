@@ -1,0 +1,43 @@
+Explanations:
+
+Part 1:
+
+The first hashcode was eventually provided to us but I figured out a similar solution anyway using the same idea. 
+However, I didn't use a 2d array as a lookup table and instead caluclated the power of 3 each time, 
+meaning the runtime was much longer than it could have been.
+
+Part 2:
+
+My hashcode uses prime numbers (3, 5, and 7) and multiplies by both the row and column to minimize collisions. 
+Additionally, after some testing I noticed there was a good deal of wasted space at the start of the array, 
+so I included a subtraction just before the return statement to start the array at 0. 
+I used buckets as a response to collisions.
+
+Stats:
+Array Size: 167
+Bucket Reporting: 
+Total Buckets: 156
+Entries without collisions: 11
+Biggest bucket: 37
+Average Bucket Size: 8.903846153846153
+
+
+Reporting on Quartile Distribution...
+
+For quartile 1, there are 0 entries
+For quartile 2, there are 63 entries
+For quartile 3, there are 86 entries
+For quartile 4, there are 18 entries
+
+Reporting on Collisions per Tenth...
+
+For tenth 1, there are 0 collisions
+For tenth 2, there are 0 collisions
+For tenth 3, there are 2 collisions
+For tenth 4, there are 84 collisions
+For tenth 5, there are 167 collisions
+For tenth 6, there are 592 collisions
+For tenth 7, there are 430 collisions
+For tenth 8, there are 98 collisions
+For tenth 9, there are 16 collisions
+For tenth 10, there are 0 collisions

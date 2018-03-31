@@ -2,13 +2,24 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
-//TODO Make sure you remove all of the TODO comments from this file before turning it in
-
+/**
+ * A class that uses hashing and lookup tables for TicTacToe in order to quickly
+ * determine winner files
+ * 
+ * @author Sean Gibbons
+ *
+ */
 @SuppressWarnings("serial")
 public class TicTacToeHashCode extends Board {
 
 	boolean[] winners; // True if the hash string that maps to this index is a winner, false otherwise
 
+	/**
+	 * A constructor with one string parameter that uses the super constructor then
+	 * creates a boolean array where winning board arrangements are stored
+	 * 
+	 * @param s
+	 */
 	TicTacToeHashCode(String s) {
 		super(s);
 		winners = new boolean[TicTacToe.POSSIBILITIES];
@@ -31,14 +42,16 @@ public class TicTacToeHashCode extends Board {
 
 		int powersOf3[][] = new int[][] { { 1, 3, 9 }, { 27, 81, 243 }, { 729, 2187, 6561 } };
 
-		for (int i = 0; i < TicTacToe.ROWS; i++) {
-			for (int j = 0; j < TicTacToe.COLS; j++) {
-				switch (charAt(i, j)) {
+		for (int row = 0; row < TicTacToe.ROWS; row++) {
+			for (int col = 0; col < TicTacToe.COLS; col++) {
+				switch (charAt(row, col)) {
 				case 'x':
-					result += powersOf3[i][j];
+					result += powersOf3[row][col];
+					break;
+				case 'o':
+					result += (2 * powersOf3[row][col]);
 					break;
 				default:
-					result += 2 * powersOf3[i][j];
 					break;
 				}
 
@@ -76,12 +89,11 @@ public class TicTacToeHashCode extends Board {
 	@Override
 	public boolean isWin(String s) {
 		this.setBoardString(s);
-		return winners[this.myHashCode()];
+		return isWin();
 	}
 
 	@Override
 	public boolean isWin() {
-		System.out.println(winners[this.myHashCode()] + " " + this.myHashCode());
 		return winners[this.myHashCode()];
 	}
 
@@ -92,11 +104,13 @@ public class TicTacToeHashCode extends Board {
 			String line = test.nextLine();
 			board.setBoardString(line);
 			board.setHashCodeLabel(board.myHashCode());
-			System.out.println(board.isWin());
+			System.out.println(board.myHashCode() + " " + board.isWin());
 			board.setWinnerLabel(board.isWin());
-			Thread.sleep(1000);// TODO Pause 4 seconds
+			Thread.sleep(4000);// Pause 4 seconds between test
 		}
 		test.close();
+		Thread.sleep(10000);// remain open for 10 seconds then close
+		System.exit(0);
 
 		/* Mrs Kelly Original Tests */
 		// TicTacToeHashCode board = new TicTacToeHashCode("Tic Tac Toe");
