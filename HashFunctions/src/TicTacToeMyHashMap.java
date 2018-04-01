@@ -28,12 +28,14 @@ public class TicTacToeMyHashMap {
 			TTT_HC ticTac = new TTT_HC("TicTac");
 			ticTac.setBoardString(wins.nextLine());
 			map.put(ticTac, true);
+			ticTac.getDefaultCloseOperation();
 		}
 		wins.close();
 	}
 
 	/**
-	 * Returns the default capacity of the hashMap that I created
+	 * Returns the resulting capacity of the hashMap that I created after the
+	 * winners are added
 	 * 
 	 * @return the capacity of the hashMap
 	 * @throws NoSuchFieldException
@@ -79,35 +81,52 @@ public class TicTacToeMyHashMap {
 	 * @param table
 	 *            the table to be analyzed
 	 * @return a String output containing the required reporting
+	 * @throws SecurityException
+	 * @throws NoSuchFieldException
+	 * @throws IllegalAccessException
+	 * @throws IllegalArgumentException
 	 */
-	public String reportStats(Object[] table) {
+	public String reportStats(Object[] table)
+			throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
 		String output = "";
-		int size = 0;
-		int bucketNum = 0, singles = 0, biggestBucket = 0;
+		int size = 0, moreThanOne = 0, singles = 0, biggestBucket = 0;
 		double avgSize = 0.0;
-
-		for (int i = 0; i < table.length; i++) {
-			if (table[i] != null) {
+		ArrayList<Integer> vals = new ArrayList<Integer>();
+		for (Object entry : table) {
+			if (entry != null) {
 				size++;
-				if (table[i] instanceof ArrayList<?>) {
-					ArrayList<?> thisBucket = (ArrayList<?>) table[i];
-					bucketNum++;
-					avgSize += thisBucket.size();
-
-					if (thisBucket.size() > biggestBucket)
-						biggestBucket = thisBucket.size();
-					continue;
+				Field next = entry.getClass().getDeclaredField("next");
+				next.setAccessible(true);
+				Object o = next.get(entry);
+				int curBucketScore = 0;
+				while (o != null) {
+					curBucketScore++;
+					next = o.getClass().getDeclaredField("next");
+					next.setAccessible(true);
+					o = next.get(o);
 				}
-				singles++;
 
+				if (curBucketScore == 1) {
+					singles++;
+				}
+				if (curBucketScore > 1)
+					moreThanOne++;
+				vals.add(curBucketScore);
 			}
 		}
-		avgSize = avgSize / bucketNum;
+		int total = 0;
+		for (Integer i : vals) {
+			if (i > 1)
+				total += i;
+			if (i > biggestBucket)
+				biggestBucket = i;
+		}
+		avgSize = ((double) total) / ((double) moreThanOne);
 		output += "Array Size: " + size + "\n";
-		output += "Bucket Reporting: \n\nTotal Buckets: " + bucketNum + "\nEntries without collisions: " + singles
+		output += "Bucket Reporting: \n\nTotal Buckets: " + vals.size() + "\nEntries without collisions: " + singles
 				+ "\nBiggest bucket: " + biggestBucket + "\nAverage Bucket Size: " + avgSize + "\n\n";
 
-		output += quartiles(table) + "\n" + tenths(table);
+		output += quartiles(table) + "\n" + tenths(vals);
 		return output;
 	}
 
@@ -135,25 +154,22 @@ public class TicTacToeMyHashMap {
 	}
 
 	/**
-	 * Returns a String output of the collisions per tenth of a given table
+	 * Returns a String output of the collisions per tenth of a given ArrayList of
+	 * Integers
 	 * 
-	 * @param table
-	 *            the table to be checked for collisions
-	 * @return a String output of the collisions per tenth of a given table
+	 * @param vals
+	 *            the ArrayList of Integers to be analyzed
+	 * @return a String output of the collisions per tenth of a given ArrayList
 	 */
-	@SuppressWarnings("unchecked")
-	public String tenths(Object[] table) {
+
+	public String tenths(ArrayList<Integer> vals) {
 		String output = "Reporting on Collisions per Tenth...\n\n";
 
 		for (int curTenth = 0; curTenth < 10; curTenth++) {
 			int collisions = 0;
-			int initial = (table.length - 1) / 10;
+			int initial = (vals.size() - 1) / 10;
 			for (int i = initial * curTenth; i < initial * (curTenth + 1); i++) {
-				if (table[i] instanceof ArrayList<?>)
-					for (@SuppressWarnings("unused")
-					Object o : (ArrayList<Object>) table[i]) {
-						collisions++;
-					}
+				collisions += vals.get(i);
 			}
 			output += "For tenth " + (curTenth + 1) + ", there are " + collisions + " collisions\n";
 

@@ -170,7 +170,7 @@ public class TTT_HC extends Board {
 			}
 		}
 		avgSize = avgSize / bucketNum;
-		output += "Array Size: " + size + "\n";
+		output += "Array Size: " + size + "\nLoad Factor: " + (((double) size) / ((double) bucketNum)) + "\n";
 		output += "Bucket Reporting: \n\nTotal Buckets: " + bucketNum + "\nEntries without collisions: " + singles
 				+ "\nBiggest bucket: " + biggestBucket + "\nAverage Bucket Size: " + avgSize + "\n\n";
 
@@ -210,14 +210,13 @@ public class TTT_HC extends Board {
 			int initial = (winners.length - 1) / 10;
 			for (int i = initial * curTenth; i < initial * (curTenth + 1); i++) {
 				if (winners[i] instanceof ArrayList<?>)
-					for (Object o : (ArrayList<Object>) winners[i]) {
-						collisions++;
-					}
+					collisions += ((ArrayList<Object>) winners[i]).size();
 			}
 			output += "For tenth " + (curTenth + 1) + ", there are " + collisions + " collisions\n";
 
 		}
 		System.out.println(output);
+
 	}
 
 	/**

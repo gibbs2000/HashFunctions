@@ -2,16 +2,21 @@ Explanations:
 
 Part 1:
 
-The first hashcode was eventually provided to us but I figured out a similar solution anyway using the same idea. 
-However, I didn't use a 2d array as a lookup table and instead caluclated the power of 3 each time, 
+The first hashCode was eventually provided to us but I figured out a similar solution anyway using the same idea. 
+However, I didn't use a 2d array as a lookup table and instead calculated the power of 3 each time, 
 meaning the runtime was much longer than it could have been.
+When I started to test this section, I kept running into the same problem; the hashCode value I was getting didn't 
+seem to match the ones in the TicTacToe file. However, I eventually realized that it was because the hashCode values
+start at 0 and the line numbers in the file start at 1. This seems really obvious, but for the life of me I could not
+figure it out for several days, and this bug was what we discussed but could not get to the bottom of over Google Hangouts.
+After I realized this, I subsequently realized that my hashCode was working fine.
 
 Part 2:
 
-My hashcode uses prime numbers (3, 5, and 7) and multiplies by both the row and column to minimize collisions. 
+My hashCode uses prime numbers (3, 5, and 7) and multiplies by both the row and column to minimize collisions. 
 Additionally, after some testing I noticed there was a good deal of wasted space at the start of the array, 
 so I included a subtraction just before the return statement to start the array at 0. 
-I used buckets as a response to collisions.
+I used buckets as a response to collisions. 
 
 A quick note on testing: 
 Most of my tests use some variation of "String output = "";......System.out.println(output);"
@@ -19,8 +24,11 @@ I found this to be a convenient way of switching between a method that returns v
 and a method that returns a String and does not print anything
 
 Stats:
+
 Array Size: 167
+Load Factor: 1.0705128205128205
 Bucket Reporting: 
+
 Total Buckets: 156
 Entries without collisions: 11
 Biggest bucket: 37
@@ -49,7 +57,52 @@ For tenth 10, there are 0 collisions
 
 
 
+
+
 Part 3:
 
 This part does not work as well as I'd hope, but I did my best.
-The default java hashcode just analyzes the wins based on their String value
+The default java hashCode just analyzes the wins based on their String value.
+
+For Java's HashMap:
+Stats:
+Capacity: 2048
+Array Size: 1008
+
+Bucket Reporting: 
+
+Total Buckets: 1008
+Entries without collisions: 246
+Biggest bucket: 3
+Average Bucket Size: 2.1159420289855073
+
+Reporting on Quartile Distribution...
+
+For quartile 1, there are 269 entries
+For quartile 2, there are 263 entries
+For quartile 3, there are 235 entries
+For quartile 4, there are 240 entries
+
+Reporting on Collisions per Tenth...
+
+For tenth 1, there are 43 collisions
+For tenth 2, there are 50 collisions
+For tenth 3, there are 41 collisions
+For tenth 4, there are 34 collisions
+For tenth 5, there are 43 collisions
+For tenth 6, there are 42 collisions
+For tenth 7, there are 32 collisions
+For tenth 8, there are 28 collisions
+For tenth 9, there are 37 collisions
+For tenth 10, there are 41 collisions
+
+
+Regarding myHashMap:
+I realized that, in order to use the HashMap built in to Java, the keys of the array need to be of the data type 
+which is using my overridden hashCode method. Therefore, I made my hashMap with keys of TTT_HC and values of boolean. 
+Unfortunately, the TTT_HC constructor creates a JFrame due to inheritance, and because the winners array is so large, 
+this crashed my computer every time. As much as I tried to find a way to automatically close the window, I could not
+find a method to close JFrame without having to click the "X" which is impossible at the rate the code is created. 
+However, I assume that the results of this section are highly similar to Part 2 anyway because I am using the same
+hashCode anyway.
+
